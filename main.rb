@@ -68,11 +68,21 @@ class Game
     Curses.init_screen
     Curses.raw
     Curses.noecho
-    @frame = Curses::Window.new STAGE_H+2, STAGE_W+2, 0, 0
+    Curses.curs_set 0
+
+    @info = Curses::Window.new STAGE_H+2, 12, 0, 0
+    @info.box ?|, ?-, ?*
+    @info.setpos 2, 1
+    @info.addstr 'score'
+    @info.setpos 3, 3
+    @info.addstr '12050'
+    @info.refresh
+
+    @frame = Curses::Window.new STAGE_H+2, STAGE_W+2, 0, 11
     @frame.box ?|, ?-, ?*
     @frame.refresh
 
-    @win = @frame.subwin STAGE_H, STAGE_W, 1, 1
+    @win = @frame.subwin STAGE_H, STAGE_W, 1, 12
     # @win.timeout=0.1
   end
 
